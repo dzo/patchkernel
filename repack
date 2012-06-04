@@ -1,0 +1,6 @@
+./patchfile
+gzip -f -9 < piggy1 > piggy.gzip
+arm-eabi-gcc -c -o piggy.gzip.o piggy.gzip.S
+arm-eabi-ld -EL --defsym zreladdr=0x080408000 -p --no-undefined -X -T vmlinux.lds head.o piggy.gzip.o misc.o decompress.o string.o lib1funcs.o -o vmlinux
+arm-eabi-objcopy -O binary -R .comment -S vmlinux zImage
+abootimg -u boot.img -k zImage

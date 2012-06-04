@@ -1,0 +1,5 @@
+abootimg -x boot.img
+# the skip value may not always be correct, search for the first 
+# occurrence of 0x1f 0x8b in zImage to find it
+dd if=zImage of=piggy.gz bs=1 skip=16253
+gzip -f -d piggy.gz
